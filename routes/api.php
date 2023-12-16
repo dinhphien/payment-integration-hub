@@ -1,6 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Loan\ApproveLoanController;
+use App\Http\Controllers\Loan\CreateLoanController;
+use App\Http\Controllers\Loan\Repayment\AddRepaymentController;
+use App\Http\Controllers\Loan\ViewLoanController;
+use App\Http\Controllers\V1\Cafe24CheckoutController;
+use App\Http\Controllers\V1\ShopifyCheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +19,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'prefix' => 'v1'
+], function (){
+    Route::group([
+        'prefix' => 'checkout'
+    ], function () {
+        Route::post('/cafe24', Cafe24CheckoutController::class);
+        Route::post('/shopify', ShopifyCheckoutController::class);
+    });
 });
