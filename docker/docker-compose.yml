@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+    volumes:
+      - ../:/mnt/code
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8088:80"
+    depends_on:
+        db:
+            condition: service_healthy
+
+  app:
+    build:
+      context: ../
+      dockerfile: docker/php-fpm/Dockerfile
+      target: build-dev
+    working_dir: /mnt/code
+    volumes:
+      - ../:/mnt/code
+      - ./php-fpm/custom-xdebug.ini:/usr/local/etc/php/conf.d/custom-xdebug.ini
+    depends_on:
+        db:
+            condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: notusedbutneeded
+      MYSQL_DATABASE: payment
+      MYSQL_USER: user_dev
+      MYSQL_PASSWORD: secrete
+    volumes:
+      - ./database/dumps:/docker-entrypoint-initdb.d
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        interval: 15s
+        timeout: 10s
+        retries: 50
+
+
