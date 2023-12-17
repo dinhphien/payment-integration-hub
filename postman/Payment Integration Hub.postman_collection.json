@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "f3fabcfa-044b-4d01-a806-57892bfa62b7",
+		"name": "Payment Integration Hub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17498819"
+	},
+	"item": [
+		{
+			"name": "V1",
+			"item": [
+				{
+					"name": "Cafe24 Checkout Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cafe24_checkout_id\": \"234akzvlk34074166\", // unique for each checkout request\n    \"cafe24_store_id\": \"2000\",\n    \"cafe24_amount\": 9.99,\n    \"cafe24_currency_code\": \"USD\",\n    \"cafe24_customer_email\": \"customer1@cf24.com\",\n    \"cafe24_payment_callback_url\": \"https://api.cafe24.com/payment-callback/v1/oid/234akzvlk34074166\",\n    \"cafe24_hash_data\": \"5/8x84OPGouIuBoorixtF4kGLD9byfQPCvOLuhwPrMw=\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/api/v1/checkout/cafe24"
+					},
+					"response": []
+				},
+				{
+					"name": "Shopify Checkout Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"x_checkout_id\": \"132423409546723\", // unique for each checkout request\n    \"x_shop_id\": \"3000\",\n    \"x_amount\": 9.99,\n    \"x_currency\": \"USD\",\n    \"x_customer_email\": \"customer1@shopify.com\",\n    \"x_url_callback\": \"https://api.shopify.com/notify/rf/132423409546723\",\n    \"x_signature\": \"1fc795838fee12a7b15a4ddd022e8adbb21cefeccfb5076399cf8dd30b471426\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8088/api/v1/checkout/shopify"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -32,7 +32,7 @@ class ShopifyCheckoutController extends Controller
     {
         if (! $this->requestValidator->validate($request)) {
             return new JsonResponse(
-                ['success' => 'false', 'errors' => $this->requestValidator->getErrors()], 400
+                ['success' => false, 'errors' => $this->requestValidator->getErrors()], 400
             );
         }
         $validatedData = $this->requestValidator->getValidatedParams();
