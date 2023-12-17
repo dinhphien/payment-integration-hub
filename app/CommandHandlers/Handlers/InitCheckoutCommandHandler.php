@@ -8,13 +8,13 @@ use App\CommandHandlers\Commands\CommandInterface;
 use App\CommandHandlers\Commands\InitCheckoutCommand;
 use App\Models\Checkout;
 use App\Models\Request;
-use App\Services\PaymentService;
+use App\Services\PaymentServiceInterface;
 use App\ValueObjects\URL;
 
 class InitCheckoutCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private PaymentService $paymentService
+        private PaymentServiceInterface $paymentService
     ) {
     }
 
